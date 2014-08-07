@@ -70,15 +70,15 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:hint="@string/message"
+            android:hint="@string/im_sorry"
             android:id="@+id/message_edit_text"
-            android:lines="5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <Button
         android:padding="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/send_button"
         android:layout_below="@id/message_layout"
         android:layout_centerHorizontal="true"
@@ -88,6 +88,15 @@
         android:background="@drawable/send_button"
         android:text="SEND"
         />
+
+    <TextView
+        android:text="@string/explanation"
+        android:layout_below="@id/send_button"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/gray"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ProgressBar
         android:id="@+id/spinner"
