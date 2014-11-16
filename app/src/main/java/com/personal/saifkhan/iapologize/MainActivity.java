@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+
 
 public class MainActivity extends Activity {
 
@@ -108,6 +112,18 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, "69KBFW9HYDGCGHNVSFX4");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
+    }
+
     private void hideKeyboardFrom(EditText editText) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
@@ -118,13 +134,14 @@ public class MainActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            for(int x = 0; x < Integer.parseInt(mHowManyEditTextView.getText().toString()); x ++) {
+            int howMany = Integer.parseInt(mHowManyEditTextView.getText().toString());
+            for(int x = 0; x < howMany; x ++) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                sendSMS(mPhoneNumberEditTextView.getText().toString(), mMessageEditTextView.getText().toString());
+                sendSMS(mPhoneNumberEditTextView.getText().toString(), mMessageEditTextView.getText().toString(), howMany);
             }
             return "";
 
@@ -150,9 +167,12 @@ public class MainActivity extends Activity {
                         .show();
             }
         });
+        HashMap values = new HashMap();
+        values.put("How many", Integer.parseInt(mHowManyEditTextView.getText().toString()));
+        FlurryAgent.logEvent("send sms", values);
     }
 
-    private void sendSMS(String phoneNumber, String message)
+    private void sendSMS(String phoneNumber, String message, int howMany)
     {
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNumber, null, message, null, null);
