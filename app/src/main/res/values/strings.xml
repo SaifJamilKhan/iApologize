@@ -5,8 +5,10 @@
     <string name="phone_number">Phone Number</string>
     <string name="how_many_times">How Many Texts</string>
     <string name="message">Message</string>
-    <string name="im_sorry">I\'m sorry. I didn\'t mean to screw up like I did. Last night was entirely my fault, no one should get that silly while playing Monopoly. I know I might mess up some times, so I got this really great app to help me out. At least every time I mess up, iApologize.</string>
+    <string name="im_sorry">Last night was entirely my fault, no one should get that silly while playing Monopoly. I know I might mess up some times, so I got this really great app to help me out. At least every time I mess up, iApologize.</string>
     <string name="explanation">This app sends multiple messages to a phone number. Enjoy!</string>
+    <!--<string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>-->
 
+    <string name="banner_ad_unit_id">ca-app-pub-1900105952197422/1437914191</string>
 
 </resources>

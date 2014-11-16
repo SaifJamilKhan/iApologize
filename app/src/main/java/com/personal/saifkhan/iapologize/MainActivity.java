@@ -2,7 +2,6 @@ package com.personal.saifkhan.iapologize;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -95,7 +94,6 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 mSpinner.setVisibility(View.GONE);
-
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Sent!")
                         .setMessage("You sent " + mHowManyEditTextView.getText().toString() + " messages to " +mPhoneNumberEditTextView.getText().toString())

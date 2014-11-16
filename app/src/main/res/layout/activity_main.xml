@@ -90,6 +90,7 @@
         />
 
     <TextView
+        android:id="@+id/send_button_text"
         android:text="@string/explanation"
         android:layout_below="@id/send_button"
         android:layout_centerHorizontal="true"
@@ -105,6 +106,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         />
+
+    <fragment
+        android:id="@+id/adFragment"
+        android:layout_below="@id/send_button_text"
+        android:name="com.personal.saifkhan.iapologize.AdFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
 </ScrollView>
