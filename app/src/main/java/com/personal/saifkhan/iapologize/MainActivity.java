@@ -3,8 +3,12 @@ package com.personal.saifkhan.iapologize;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -58,6 +62,50 @@ public class MainActivity extends Activity {
 
             }
         });
+
+        Button selectContactButton = (Button) findViewById(R.id.select_contact);
+        selectContactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, PICK_CONTACT);
+            }
+        });
+    }
+    static final int PICK_CONTACT=1;
+
+    //code
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+        switch (reqCode) {
+            case (PICK_CONTACT):
+                if (resultCode == Activity.RESULT_OK) {
+
+                    Uri contactData = data.getData();
+                    Cursor c = managedQuery(contactData, null, null, null, null);
+                    if (c.moveToFirst()) {
+
+
+                        String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+
+                        String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+                        if (hasPhone.equalsIgnoreCase("1")) {
+                            Cursor phones = getContentResolver().query(
+                                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
+                                    null, null);
+                            phones.moveToFirst();
+                            String phoneNumber = phones.getString(phones.getColumnIndex("data1"));
+                            mPhoneNumberEditTextView.setText(phoneNumber);
+                        }
+
+                    }
+                }
+                break;
+        }
     }
 
     private void hideKeyboardFrom(EditText editText) {
